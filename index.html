@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="./asset/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -49,7 +46,8 @@
       
           <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100">
       
-          <audio id="audio" src=""></audio>
+          <audio id="audio" src="">
+          </audio>
         </div>
       
         <!-- Playlist -->
@@ -77,8 +75,16 @@
 
         const $ = document.querySelector.bind(document);
         const $$ = document.querySelectorAll.bind(document);
+        const heading = $('header h2')
+        const cdThumb = $('.cd-thumb')
+        const audio = $('#audio')
+        const cd = $('.cd')
+        const player = $('.player')
+
+        const playBtn = $('.btn-toggle-play')
 
         const app = {
+          currentIndex: 0,
           songs: [
             {
               name: 'All Around The World',
@@ -160,7 +166,50 @@
             })
             $('.playlist').innerHTML = htmls.join('')
           },
+          defineProperties: function() {
+            Object.defineProperty(this, "currentSong", {
+              get: function() {
+                return this.songs[this.currentIndex];
+              }
+            })
+          },
+
+          handleEvents: function() {
+            const _this = this
+            const cdWidth = cd.offsetWidth
+
+          // Khi kéo danh sách nhạc thì hình tròn chính nhỏ và mờ dần đi
+            document.onscroll = function() {
+              const scrollTop = window.scrollY || document.documentElement.scrollTop
+              const newCdWidth = cdWidth - scrollTop;
+
+              cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0;
+              cd.style.opacity = newCdWidth / cdWidth;
+            }
+
+          // Xử lý khi click Play
+            playBtn.onclick = function() {
+              audio.play()
+              player.classList.add('playing')
+            }
+          },
+          loadCurrentSong: function() {
+            heading.textContent = this.currentSong.name
+            cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
+            audio.scr = this.currentSong.path
+          },
+
           start: function() {
+            //Định nghĩa các thuộc tính cho object
+            this.defineProperties()
+
+            // Lắng nghe / xử lý các sự kiện (DOM events)
+            this.handleEvents()
+
+            //Tải thông tin bài hát đầu tiên vào UI khi chạy ứng dụng
+            this.loadCurrentSong()
+
+            // Render playlist
             this.render()
           }
         } 
