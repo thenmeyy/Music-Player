@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="./asset/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <title>Music Player</title>
+    <link rel="stylesheet" href="./asset/style.css">
 </head>
 <body>
     <div class="player">
@@ -46,8 +46,7 @@
       
           <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100">
       
-          <audio id="audio" src="">
-          </audio>
+          <audio id="audio" src=""></audio>
         </div>
       
         <!-- Playlist -->
@@ -59,162 +58,9 @@
       
       <!-- Design from: https://static.collectui.com/shots/3671744/musicloud-revolutionary-app-for-music-streaming-large -->
 
-      <script>
-        /**
-         * 1. Render songs
-         * 2. Scroll top
-         * 3. Play / pause / seek
-         * 4. CD rotate
-         * 5. Next / prev
-         * 6. Random
-         * 7. Next / Repeat when ended
-         * 8. Active song
-         * 9. Scroll active song into view
-         * 10. Play song when click
-        */
-
-        const $ = document.querySelector.bind(document);
-        const $$ = document.querySelectorAll.bind(document);
-        const heading = $('header h2')
-        const cdThumb = $('.cd-thumb')
-        const audio = $('#audio')
-        const cd = $('.cd')
-        const player = $('.player')
-
-        const playBtn = $('.btn-toggle-play')
-
-        const app = {
-          currentIndex: 0,
-          songs: [
-            {
-              name: 'All Around The World',
-              singer: 'R3hab',
-              path: './asset/music/song1.mp3',
-              image: './asset/img/song1.jpg'
-            },
-            {
-              name: 'Nevada',
-              singer: 'Vicetone',
-              path: './asset/music/song2.mp3',
-              image: './asset/img/song2.jpg'
-            }, 
-            {
-              name: 'Aurora',
-              singer: 'K-391',
-              path: './asset/music/song3.mp3',
-              image: './asset/img/song3.jpg'
-            }, 
-            {
-              name: 'On My Way',
-              singer: 'Alan Walker',
-              path: './asset/music/song4.mp3',
-              image: './asset/img/song4.jpg'
-            }, 
-            {
-              name: 'Cold Water',
-              singer: 'Justin Bieber',
-              path: './asset/music/song5.mp3',
-              image: './asset/img/song5.jpg'
-            }, 
-            {
-              name: 'In The Name Of Lover',
-              singer: 'Martin Garrix & Bebe Rexha',
-              path: './asset/music/song6.mp3',
-              image: './asset/img/song6.jpeg'
-            }, 
-            {
-              name: 'End Of Time',
-              singer: 'Alan Walker',
-              path: './asset/music/song7.mp3',
-              image: './asset/img/song7.jpg'
-            }, 
-            {
-              name: 'Scared To Be Lonely',
-              singer: 'Martin Garrix & Dua Lipa',
-              path: './asset/music/song8.mp3',
-              image: './asset/img/song8.jpg'
-            },
-            {
-              name: 'Play',
-              singer: 'Alan Walker',
-              path: './asset/music/song9.mp3',
-              image: './asset/img/song9.jpg'
-            },
-            {
-              name: 'Dusk Till Dawn',
-              singer: 'ZayN & Sia',
-              path: './asset/music/song10.mp3',
-              image: './asset/img/song10.jpg'
-            }
-          ],
-          render: function() {
-            const htmls = this.songs.map(song => {
-              return `
-                  <div class="song">
-                    <div class="thumb" 
-                      style="background-image: url('${song.image}')">
-                    </div>
-                    <div class="body">
-                      <h3 class="title">${song.name}</h3>
-                      <p class="author">${song.singer}</p>
-                    </div>
-                    <div class="option">
-                      <i class="fas fa-ellipsis-h"></i>
-                    </div>
-                  </div>
-              `
-            })
-            $('.playlist').innerHTML = htmls.join('')
-          },
-          defineProperties: function() {
-            Object.defineProperty(this, "currentSong", {
-              get: function() {
-                return this.songs[this.currentIndex];
-              }
-            })
-          },
-
-          handleEvents: function() {
-            const _this = this
-            const cdWidth = cd.offsetWidth
-
-          // Khi kéo danh sách nhạc thì hình tròn chính nhỏ và mờ dần đi
-            document.onscroll = function() {
-              const scrollTop = window.scrollY || document.documentElement.scrollTop
-              const newCdWidth = cdWidth - scrollTop;
-
-              cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0;
-              cd.style.opacity = newCdWidth / cdWidth;
-            }
-
-          // Xử lý khi click Play
-            playBtn.onclick = function() {
-              audio.play()
-              player.classList.add('playing')
-            }
-          },
-          loadCurrentSong: function() {
-            heading.textContent = this.currentSong.name
-            cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
-            audio.scr = this.currentSong.path
-          },
-
-          start: function() {
-            //Định nghĩa các thuộc tính cho object
-            this.defineProperties()
-
-            // Lắng nghe / xử lý các sự kiện (DOM events)
-            this.handleEvents()
-
-            //Tải thông tin bài hát đầu tiên vào UI khi chạy ứng dụng
-            this.loadCurrentSong()
-
-            // Render playlist
-            this.render()
-          }
-        } 
-
-        app.start()
+      <script type=”text/javascript” src=”http://code.jquery.com/jquery-2.0.3.min.js”></script>
+      <script src="./main.js">
+        
       </script>
       
 </body>
