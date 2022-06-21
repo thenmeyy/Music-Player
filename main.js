@@ -23,8 +23,11 @@
 
  const playBtn = $('.btn-toggle-play')
 
+ const progress = $('.progress')
+
  const app = {
    currentIndex: 0,
+   isPlaying: false,
    songs: [
      {
        name: 'Yên Vũ Hành Châu',
@@ -130,14 +133,43 @@
 
    // Xử lý khi click Play
     playBtn.onclick = () => {
+      if(_this.isPlaying) {
+        audio.pause()
+      } else {
         audio.play()
-        player.classList.add('playing')
+      }
+    }
+
+    // Khi song được play 
+    audio.onplay = function () {
+      _this.isPlaying = true
+      player.classList.add('playing')
+    }
+
+    // Khi song bị pause 
+    audio.onpause = function () {
+      _this.isPlaying = false
+      player.classList.remove('playing')
+    }
+
+    // Khi tiến độ bài hát thay đổi
+    audio.ontimeupdate = function () {
+      if (audio.duration) {
+        const progressPercent = Math.floor(audio.currentTime /audio.duration * 100)
+        progress.value = progressPercent
+      }
+    }
+
+    //Xử lý khi tua song
+    progress.onchange = function(e) {
+      const seekTime = audio.duration / 100 * e.target.value
+      audio.currentTime = seekTime
     }
    },
    loadCurrentSong: function() {
      heading.textContent = this.currentSong.name
      cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
-     audio.scr = this.currentSong.path
+     audio.src = this.currentSong.path
    },
 
    start: function() {
