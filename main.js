@@ -27,64 +27,64 @@
    currentIndex: 0,
    songs: [
      {
-       name: 'All Around The World',
-       singer: 'R3hab',
-       path: './asset/music/All-Around-The-World-La-La-La-R3hab-A-Touch-Of-Class.mp3',
-       image: './asset/img/song1.jpg'
+       name: 'Yên Vũ Hành Châu',
+       singer: 'Tư Nam',
+       path: './asset/music/YenVuHanhChau-TiNa-6063888.mp3',
+       image: './asset/img/1567920376145_640.jpg'
      },
      {
-       name: 'Nevada',
-       singer: 'Vicetone',
-       path: './asset/music/Nevada-Monstercat-6983746.mp3',
-       image: './asset/img/song2.jpg'
+       name: 'Trạm Khí Tượng',
+       singer: 'Uu',
+       path: './asset/music/TramKhiTuong-Uu-7005868.mp3',
+       image: './asset/img/tai-bai-hat-moi-tram-khi-tuong-hay-online.png'
      }, 
      {
-       name: 'Aurora',
-       singer: 'K-391',
-       path: './asset/music/Aurora-K391RRY-6820884.mp3',
-       image: './asset/img/song3.jpg'
+       name: 'Vịnh Alaska',
+       singer: 'Lam Tâm Vũ',
+       path: './asset/music/Vinh Alaska - Lam Tam Vu.mp3',
+       image: './asset/img/artworks-e2bEqyNorwJH5J5T-hPnzHQ-t500x500.jpg'
      }, 
      {
-       name: 'On My Way',
-       singer: 'Alan Walker',
-       path: './asset/music/OnMyWay-AlanWalkerSabrinaCarpenterFarruko-5919403.mp3',
-       image: './asset/img/song4.jpg'
+       name: 'Hoa Vũ Rơi',
+       singer: 'Nhậm Nhiên',
+       path: './asset/music/Hoa-Vu-Roi-Nham-Nhien.mp3',
+       image: './asset/img/1567751369983_600.jpg'
      }, 
      {
-       name: 'Cold Water',
-       singer: 'Justin Bieber',
-       path: './asset/music/song5.mp3',
-       image: './asset/img/song5.jpg'
+       name: 'Tham Song',
+       singer: 'Phù Sinh Mộng',
+       path: './asset/music/ThamSong-PhuSinhMong-7057215.mp3',
+       image: './asset/img/maxresdefault.jpg'
      }, 
      {
-       name: 'In The Name Of Lover',
-       singer: 'Martin Garrix & Bebe Rexha',
-       path: './asset/music/song6.mp3',
-       image: './asset/img/song6.jpeg'
+       name: 'Người Kế Nhiệm',
+       singer: 'Nhậm Nhiên',
+       path: './asset/music/Nguoi-Ke-Nhiem-Nham-Nhien.mp3',
+       image: './asset/img/109509.jpg'
      }, 
      {
-       name: 'End Of Time',
-       singer: 'Alan Walker',
-       path: './asset/music/song7.mp3',
-       image: './asset/img/song7.jpg'
+       name: 'Đông Miên',
+       singer: 'Tư Nam',
+       path: './asset/music/Dong Mien - Tu Nam.mp3',
+       image: './asset/img/artworks-000678290209-1kyd9m-t500x500.jpg'
      }, 
      {
-       name: 'Scared To Be Lonely',
-       singer: 'Martin Garrix & Dua Lipa',
-       path: './asset/music/song8.mp3',
-       image: './asset/img/song8.jpg'
+       name: 'Sơn Ngoại Tiểu Lâu Dạ Thính Vũ',
+       singer: 'Nhậm Nhiên',
+       path: './asset/music/SonNgoaiTieuLauDaThinhVu-NhamNhien-5921143.mp3',
+       image: './asset/img/1577951486931_640.jpg'
      },
      {
-       name: 'Play',
-       singer: 'Alan Walker',
-       path: './asset/music/song9.mp3',
-       image: './asset/img/song9.jpg'
+       name: 'Đợi Anh Bay Đến',
+       singer: 'Tiểu Điền Âm Nhạc Xã',
+       path: './asset/music/DoiAnhBayDen-TieuDienAmNhacXaMacTamMocMoSanMu-7074590.mp3',
+       image: './asset/img/145329.jpg'
      },
      {
-       name: 'Dusk Till Dawn',
-       singer: 'ZayN & Sia',
-       path: './asset/music/song10.mp3',
-       image: './asset/img/song10.jpg'
+       name: 'Nhìn Thấu',
+       singer: 'Nhậm Nhiên',
+       path: './asset/music/Nhin-thau-Nham-Nhien.mp3',
+       image: './asset/img/artworks-n4Cyk0PRCGgrFzEr-qIuRdA-t500x500.jpg'
      }
    ],
    render: function() {
