@@ -147,6 +147,11 @@
   .song.active {
     background-color: var(--primary-color);
   }
+
+  .song.active .author,
+  .song.active .title {
+    color: #fff;
+  }
   
   .song:active {
     opacity: 0.8;
