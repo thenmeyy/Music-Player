@@ -28,12 +28,16 @@
  const prevBtn = $('.btn-prev')
  const randomBtn = $('.btn-random')
  const repeatBtn = $('.btn-repeat')
+ const playlist = $('.playlist')
+
+ const PLAYER_STORAGE_KEY = 'F8_PLAYER'
 
  const app = {
    currentIndex: 0,
    isPlaying: false,
    isRandom: false,
    isRepeat: false,
+   config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
    songs: [
      {
        name: 'Yên Vũ Hành Châu',
@@ -96,10 +100,14 @@
        image: './asset/img/artworks-n4Cyk0PRCGgrFzEr-qIuRdA-t500x500.jpg'
      }
    ],
+   setConfig: function(key, value) {
+    _this.config[key] = value
+    localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config))
+   },
    render: function() {
      const htmls = this.songs.map((song, index) => {
        return `
-           <div class="song ${index === this.currentIndex ? 'active' : '' }">
+           <div class="song ${index === this.currentIndex ? 'active' : '' }" data-index="${index}">
              <div class="thumb" 
                style="background-image: url('${song.image}')">
              </div>
@@ -113,7 +121,7 @@
            </div>
        `
      })
-     $('.playlist').innerHTML = htmls.join('')
+     playlist.innerHTML = htmls.join('')
    },
    defineProperties: function() {
      Object.defineProperty(this, "currentSong", {
@@ -121,6 +129,7 @@
          return this.songs[this.currentIndex];
        }
      })
+     
    },
 
    handleEvents: function() {
@@ -235,18 +244,41 @@
       _this.isRepeat = !_this.isRepeat
       repeatBtn.classList.toggle('active', _this.isRepeat)
     }
+
+    // Ấn vào bài hát thì phát bài hát
+    // Lắng nghe hành vi click
+    playlist.onclick = function(e) {
+      const songNode = e.target.closest('.song:not(.active)')
+      // Xử lý khi click vào song 
+      if (e.target.closest('.song:not(.active)') || e.target.closest('.option')) {
+        //Xử lý khi click vào song
+        if(songNode) {
+          _this.currentIndex = Number(songNode.dataset.index)
+          _this.loadCurrentSong()
+          _this.render()
+          audio.play()
+        }
+
+        
+      }
+    }
    },
+
+
    scrollToActiveSong: function() {
     setTimeout(() => {
-      $('.song.active')
-    }, 500)
+      $('.song.active').scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+
+      })
+    }, 300)
    },
    loadCurrentSong: function() {
      heading.textContent = this.currentSong.name
      cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
      audio.src = this.currentSong.path
    },
-
    nextSong: function() {
     this.currentIndex++
     if (this.currentIndex >= this.songs.length) {
@@ -273,6 +305,7 @@
     this.loadCurrentSong()
    }, 
    start: function() {
+     
      //Định nghĩa các thuộc tính cho object
      this.defineProperties()
 
